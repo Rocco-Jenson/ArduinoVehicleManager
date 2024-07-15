@@ -8,8 +8,8 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_FLUID_BUFFER 7
-#define fluid_name_BUFFER 31
-#define MAX NOTES 
+#define FLUID_NAME_BUFFER 31
+#define EEPROM_START_ADDRESS 0
 
 const char* FLUID_TYPES[MAX_FLUID_BUFFER] = {
     "Engine Oil",
@@ -108,7 +108,6 @@ private:
     size_t origin_mileage;
     std::vector<FluidState> fluid_array;
     std::vector<const char*> notes_array;
-    const unsigned int EEPROM_START_ADDRESS{0};
 
 public:
     VehicleManager() : notes_array({}) {};
