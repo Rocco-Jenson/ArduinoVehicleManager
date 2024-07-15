@@ -68,7 +68,6 @@ public:
         this->new_mileage = new_mileage;
     }
 
-
     unsigned long long getNewMileage() const noexcept {
         return new_mileage;
     }
