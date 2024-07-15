@@ -118,11 +118,7 @@ public:
         fluid_array = arr;
     }
 
-      bool checkNotInitialized() const noexcept {
-        return this->vehicle_name[0] == '\0';
-      }
-
-      void initializeFromEEPROM() {
+    void initializeFromEEPROM() {
         int address = EEPROM_START_ADDRESS;
 
         EEPROM.get(address, vehicle_name);
@@ -220,8 +216,23 @@ public:
         this->notes_array.pop_back();
     }
 
-    void updateMileageStatus(size_t new_mileage) noexcept {
-        this->origin_mileage = new_mileage;
+    void updateOriginMileage(size_t origin_mileage) noexcept {
+        this->origin_mileage = origin_mileage;
+    }
+
+    void updateNewMileage(size_t fluid_struct_index, size_t new_mileage) noexcept {
+        this->fluid_array[fluid_struct_index].changeNewMileage(new_mileage);
+    }
+
+    bool checkNotInitialized() const noexcept {
+        return this->vehicle_name[0] == '\0';
+    }
+
+    // Will be changed to only clear used EEPROM Data
+    static void clearAllEEPROM() noexcept {
+        for (int i = 0; i < EEPROM.length(); i++) {
+            EEPROM.write(i, 0);
+        }
     }
 
     void checkStatus() noexcept {
