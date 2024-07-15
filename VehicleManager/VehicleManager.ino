@@ -1,7 +1,6 @@
 #include "vehicle_manager.h"
-#include <EEPROM.h>
 
-#define ORIGIN_KM 0
+#define ORIGIN_MILEAGE 0
 
 String input(const char* question, int status=1) noexcept {
   if (status) {
@@ -17,12 +16,13 @@ void PRINT_SUCCESS() noexcept {
   Serial.println("COMMAND SUCCESS");
 }
 
-std::vector<FluidState> FluidStateArray{FluidState::CreateFluidStates(ORIGIN_KM)};
+std::vector<FluidState> FluidStateArray{FluidState::CreateFluidStates(ORIGIN_MILEAGE)};
 VehicleManager _object;
 
 void setup() {
   Serial.begin(115200);
-  delay(5000);
+
+  delay(2500);
 
   Serial.println("Starting setup...");
 
@@ -30,7 +30,7 @@ void setup() {
 
   if (_object.checkNotInitialized()) {
     Serial.println("Object not initialized. Filling with initial data...");
-    _object.initVehicleManager("Ford Ranger 2006 3.0L V6", ORIGIN_KM, FluidStateArray);
+    _object.initVehicleManager("Ford Ranger 2006 3.0L V6", ORIGIN_MILEAGE, FluidStateArray);
     _object.saveToEEPROM();
     Serial.println("Initial data filled and saved to EEPROM.");
     Serial.println();
@@ -45,7 +45,7 @@ void setup() {
   Serial.println("Setup completed.");
 }
 void loop() {
-  String user_in = input("Input A Command -> UMS, AN, RN, SE, CSP, DS");
+  String user_in = input("Input A Command -> UMS/Update Mileage Status, AN/Add Note, RN/Remove Note, SE/Save to EEPROM, CSP/Change State Parameters, DS/ Display State");
   user_in.trim();
 
   if ("UMS" == user_in) {
