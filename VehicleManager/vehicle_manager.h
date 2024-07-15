@@ -77,7 +77,7 @@ public:
         return fluid_name;
     }
 
-    void FSsaveToEEPROM(int& address) const {
+    void saveToEEPROM(int& address) const {
         size_t fluid_name_len = strlen(fluid_name) + 1;
         EEPROM.put(address, fluid_name_len);
         address += sizeof(fluid_name_len);
@@ -88,7 +88,7 @@ public:
         address += sizeof(new_mileage);
     }
 
-    void FSloadFromEEPROM(int& address) {
+    void loadFromEEPROM(int& address) {
         size_t fluid_name_len;
         EEPROM.get(address, fluid_name_len);
         address += sizeof(fluid_name_len);
@@ -235,7 +235,6 @@ public:
                 _struct.setFluidState(_struct.getFluidfluid_name(), this->origin_mileage);
             }
         }
-        return 1;
     }
 
     void changeStateParameters(size_t fluid_struct_index, size_t new_mileage, size_t origin_mileage=0) noexcept {
