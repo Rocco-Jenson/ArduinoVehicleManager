@@ -1,17 +1,30 @@
 #ifndef VEHICLE_MANAGER
 #define VEHICLE_MANAGER
 
+/* EEPROM Supported Arduino Boards */
+#if defined(ARDUINO_AVR_UNO) || \
+    defined(ARDUINO_AVR_MEGA2560) || \
+    defined(ARDUINO_AVR_NANO) || \
+    defined(ARDUINO_AVR_LEONARDO) || \
+    defined(ARDUINO_AVR_PRO) || \
+    defined(ARDUINO_SAM_DUE) || \
+    defined(ARDUINO_SAMD_ZERO) || \
+    defined(ARDUINO_SAMD_MKR) || \
+    defined(ARDUINO_ARCH_ESP8266) || \
+    defined(ARDUINO_ARCH_ESP32)
+
 #include <cstddef>
 #include <cstring>
 #include <vector>
 #include <EEPROM.h>
 
+/* clangd intellisense dpreciated bypass */
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_FLUID_BUFFER 7
 #define FLUID_NAME_BUFFER 31
 #define EEPROM_START_ADDRESS 0
 
-const char* FLUID_TYPES[MAX_FLUID_BUFFER] = {
+constexpr const char* FLUID_TYPES[MAX_FLUID_BUFFER] = {
     "Engine Oil",
     "Brake Fluid",
     "Transmission Fluid",
@@ -83,7 +96,7 @@ public:
         for (size_t i = 0; i < fluid_name_len; ++i) {
             EEPROM.write(address++, fluid_name[i]);
         }
-        EEPROM.put(address, new_mileage);
+        EEPROM.put(address, (void*)new_mileage);
         address += sizeof(new_mileage);
     }
 
@@ -96,7 +109,7 @@ public:
             temp_fluid_name[i] = EEPROM.read(address++);
         }
         fluid_name = temp_fluid_name;
-        EEPROM.get(address, new_mileage);
+        EEPROM.get(address, (void*)new_mileage);
         address += sizeof(new_mileage);
     }
 };
@@ -228,7 +241,7 @@ public:
         return this->vehicle_name[0] == '\0';
     }
 
-    // Will be changed to only clear used EEPROM Data
+    /* Will be changed to only clear used EEPROM Data */
     static void clearAllEEPROM() noexcept {
         for (int i = 0; i < EEPROM.length(); i++) {
             EEPROM.write(i, 0);
@@ -254,4 +267,5 @@ public:
     }
 };
 
+#endif
 #endif
