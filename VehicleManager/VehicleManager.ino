@@ -2,7 +2,6 @@
 
 #define DEFAULT_BAUD_RATE 115200
 #define ARDUINO_DELAY 2500
-#define DEFAULT_ORIGIN_MILEAGE 0
 
 using namespace VehicleManagerNameSpace;
 
