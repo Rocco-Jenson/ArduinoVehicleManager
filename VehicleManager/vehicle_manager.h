@@ -1,7 +1,7 @@
 #ifndef VEHICLE_MANAGER
 #define VEHICLE_MANAGER
 
-/* EEPROM Supported Arduino */
+/* EEPROM Supported Arduino Boards */
 #if defined(ARDUINO_AVR_UNO) || \
     defined(ARDUINO_AVR_MEGA2560) || \
     defined(ARDUINO_AVR_NANO) || \
