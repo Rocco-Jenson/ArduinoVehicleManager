@@ -28,6 +28,7 @@ namespace VehicleManagerNameSpace {
     #define MAX_FLUID_BUFFER 7
     #define FLUID_NAME_BUFFER 31
     #define EEPROM_START_ADDRESS 0
+    #define DEFAULT_ORIGIN_MILEAGE 0
     #define GENERIC_CMD "Input A Command:\nUOMS/Update Origin Mileage Status,\nUNMS Update New Mileage Status,\nAN/Add Note,\nRN/Remove Note,\nSE/Save to EEPROM,\nCSP/Change State Parameters,\nDS/ Display State,\nCE/Clear All EEPROM"
 
     constexpr const char* FLUID_TYPES[MAX_FLUID_BUFFER] = {
